@@ -1,9 +1,9 @@
 // node factory function
 
-const Node = function(data, leftChild, rightChild){
+const Node = function(data, left = null, right = null){
     return {
         data,
-        leftChild,
-        rightChild,
+        left,
+        right,
     }
 }
