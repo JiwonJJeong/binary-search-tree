@@ -22,7 +22,7 @@ const Tree = function (dataArray) {
       return new Node(array[0], null, null);
     }
     const rootIndex = Math.floor(array.length / 2); // rootNode at middle of array, rounded up for even length
-    let rootNode = new Node(array[Math.floor(array.length / 2)]);
+    let rootNode = new Node(array[rootIndex]);
     // build left tree
     let leftArray = array[(0, rootIndex)];
     rootNode.left = arrayToTreeRecursive(leftArray);
@@ -34,7 +34,7 @@ const Tree = function (dataArray) {
 
   // builds BST and returns root node
   const buildTree = function (array = dataArray) {
-    array.sort(); // Array.prototype.sort() changes original array
+    array.sort(function(a, b){return a-b}); // sorts array numerically
     removeDuplicatesFromArray(array);
     root = arrayToTreeRecursive(array);
     return root;
