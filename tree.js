@@ -1,14 +1,8 @@
 // binary search tree factory function
+import { Node } from "./node.js";
 
 const Tree = function (dataArray) {
   let root;
-  // builds BST and returns root node
-  const buildTree = function (array) {
-    array.sort(); // Array.prototype.sort() changes original array
-    removeDuplicatesFromArray(array);
-    root = arrayToTreeRecursive(array);
-    return root;
-  };
 
   const removeDuplicatesFromArray = function (array) {
     for (let i = 1; i < array.length; i++) {
@@ -21,7 +15,7 @@ const Tree = function (dataArray) {
 
   // returns root node from array containing rest of child tree
   const arrayToTreeRecursive = function (array) {
-    if (array.length == 0) {
+    if (array == undefined) {
       return null;
     }
     if (array.length == 1) {
@@ -38,7 +32,15 @@ const Tree = function (dataArray) {
     return rootNode;
   };
 
-  const prettyPrint = (node, prefix = "", isLeft = true) => {
+  // builds BST and returns root node
+  const buildTree = function (array = dataArray) {
+    array.sort(); // Array.prototype.sort() changes original array
+    removeDuplicatesFromArray(array);
+    root = arrayToTreeRecursive(array);
+    return root;
+  }(); // IIFE (will execute on new Tree)
+
+  const prettyPrint = (node = root, prefix = "", isLeft = true) => {
     if (node === null) {
       return;
     }
@@ -53,7 +55,7 @@ const Tree = function (dataArray) {
 
   return {
     buildTree,
-    prettyPrint,
+    prettyPrint
   };
 };
 

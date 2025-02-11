@@ -7,3 +7,5 @@ const Node = function(data, left = null, right = null){
         right,
     }
 }
+
+export {Node};
