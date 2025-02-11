@@ -1,14 +1,13 @@
 // binary search tree factory function
 
 const Tree = function (dataArray) {
-  let root = buildTree(dataArray);
-
+  let root;
   // builds BST and returns root node
   const buildTree = function (array) {
     array.sort(); // Array.prototype.sort() changes original array
     removeDuplicatesFromArray(array);
-    const rootNode = new Node();
-    rootNode.left = arrayToTreeRecursive();
+    root = arrayToTreeRecursive(array);
+    return root;
   };
 
   const removeDuplicatesFromArray = function (array) {
@@ -55,7 +54,7 @@ const Tree = function (dataArray) {
   return {
     buildTree,
     prettyPrint,
-  }
+  };
 };
 
-export {Tree};
+export { Tree };
