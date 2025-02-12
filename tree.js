@@ -34,9 +34,10 @@ const Tree = function (dataArray) {
 
   // builds BST and returns root node
   const buildTree = function (array = dataArray) {
-    array.sort(function(a, b){return a-b}); // sorts array numerically
-    removeDuplicatesFromArray(array);
-    root = arrayToTreeRecursive(array);
+    let arrayCopy = array;
+    arrayCopy.sort(function(a, b){return a-b}); // sorts array numerically
+    removeDuplicatesFromArray(arrayCopy);
+    root = arrayToTreeRecursive(arrayCopy);
     return root;
   }(); // IIFE (will execute on new Tree)
 
