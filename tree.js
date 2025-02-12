@@ -56,7 +56,8 @@ const Tree = function (dataArray) {
 
   return {
     buildTree,
-    prettyPrint
+    prettyPrint,
+    root,
   };
 };
 
