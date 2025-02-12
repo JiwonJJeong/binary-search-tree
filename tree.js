@@ -15,7 +15,7 @@ const Tree = function (dataArray) {
 
   // returns root node from array containing rest of child tree
   const arrayToTreeRecursive = function (array) {
-    if (array == undefined) {
+    if (array.length == 0) {
       return null;
     }
     if (array.length == 1) {
@@ -24,10 +24,10 @@ const Tree = function (dataArray) {
     const rootIndex = Math.floor(array.length / 2); // rootNode at middle of array, rounded up for even length
     let rootNode = new Node(array[rootIndex]);
     // build left tree
-    let leftArray = array[(0, rootIndex)];
+    let leftArray = array.slice(0, rootIndex);
     rootNode.left = arrayToTreeRecursive(leftArray);
     // build right tree
-    let rightArray = array[(rootIndex + 1, array.length)];
+    let rightArray = array.slice(rootIndex + 1, array.length);
     rootNode.right = arrayToTreeRecursive(rightArray);
     return rootNode;
   };
