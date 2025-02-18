@@ -54,10 +54,31 @@ const Tree = function (dataArray) {
     }
   };
 
+  const insert = function(value){
+    let compareNode = root;
+    while (compareNode.data != value){
+      if (value < compareNode.data){
+        if (compareNode.left === null){
+          compareNode.left = new Node(value);
+          return;
+        }
+        compareNode = compareNode.left;
+      } else {
+        if (compareNode.right === null){
+          compareNode.right = new Node(value);
+          return;
+        }
+        compareNode = compareNode.right;
+      }
+    }
+    console.error("Caanot insert existing value");
+  }
+
   return {
     buildTree,
     prettyPrint,
     root,
+    insert,
   };
 };
 
