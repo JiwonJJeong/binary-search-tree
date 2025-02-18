@@ -74,6 +74,14 @@ const Tree = function (dataArray) {
     console.error("Caanot insert existing value");
   }
 
+  const deleteItem = function(value){
+    // find node to delete by traversal
+    // if node doesn't have children, just remove that node
+    // if node has one child, just replace node with that child and delete
+    // if node has two children, replace node with order successor and delete
+      // find order successor by minimum of right subtree
+  }
+
   return {
     buildTree,
     prettyPrint,
