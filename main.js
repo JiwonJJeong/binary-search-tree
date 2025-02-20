@@ -10,11 +10,12 @@ testTree.prettyPrint();
 testTree.insert(3);
 testTree.insert(2.5);
 testTree.insert(4347);
-testTree.deleteItem(4); 
 testTree.prettyPrint();
+
 testTree.deleteItem(6); 
 testTree.deleteItem(32);
 testTree.deleteItem(5);
 testTree.deleteItem(124);
-
 testTree.prettyPrint();
+
+console.log(testTree.find(3));

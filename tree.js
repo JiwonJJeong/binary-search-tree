@@ -109,12 +109,25 @@ const Tree = function (dataArray) {
     return root;
   }
 
+  const find = function(value){
+    let node = root;
+    while (node.data != value){
+      if (value < node.data){
+        node = node.left;
+      } else{
+        node = node.right;
+      }
+    }
+    return node;
+  }
+
   return {
     buildTree,
     prettyPrint,
     root,
     insert,
     deleteItem,
+    find,
   };
 };
 
