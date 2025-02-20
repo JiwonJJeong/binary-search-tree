@@ -140,6 +140,60 @@ const Tree = function (dataArray) {
     }
   }
 
+  // traverse tree depth-first inorder and calls callback on each node
+  // inorder: <left><root><right> (uses stacks bc recursion)
+  const inOrder = function(callback, stack = [this.root]){
+    if (typeof(callback) != "function"){
+      console.error("A callback function parameter is required");
+    }
+    let nextNode = stack.pop();
+    if (nextNode.left != null){
+      stack.push(nextNode.left);
+      inOrder(callback, stack);
+    }
+    callback(nextNode);
+    if (nextNode.right != null){
+      stack.push(nextNode.right);
+      inOrder(callback, stack);
+    }
+  }
+
+  // traverse tree depth-first preorder and calls callback on each node
+  // preOrder: <root><left><right>
+  const preOrder = function(callback, stack = [this.root]){
+    if (typeof(callback) != "function"){
+      console.error("A callback function parameter is required");
+    }
+    let nextNode = stack.pop();
+    callback(nextNode);
+    if (nextNode.left != null){
+      stack.push(nextNode.left);
+      preOrder(callback, stack);
+    }
+    if (nextNode.right != null){
+      stack.push(nextNode.right);
+      preOrder(callback, stack);
+    }
+  }
+
+  // traverse tree depth-first postorder and calls callback on each node
+  // postOrder: <left><right><root>
+  const postOrder = function(callback, stack = [this.root]){
+    if (typeof(callback) != "function"){
+      console.error("A callback function parameter is required");
+    }
+    let nextNode = stack.pop();
+    if (nextNode.left != null){
+      stack.push(nextNode.left);
+      postOrder(callback, stack);
+    }
+    if (nextNode.right != null){
+      stack.push(nextNode.right);
+      postOrder(callback, stack);
+    }
+    callback(nextNode);
+  }
+
   return {
     buildTree,
     prettyPrint,
@@ -148,6 +202,9 @@ const Tree = function (dataArray) {
     deleteItem,
     find,
     levelOrder,
+    preOrder,
+    inOrder,
+    postOrder,
   };
 };
 
