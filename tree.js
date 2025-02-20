@@ -121,6 +121,25 @@ const Tree = function (dataArray) {
     return node;
   }
 
+  // traverses tree and calls callback function on each node
+  // traverses breadth-first (use queues)
+  const levelOrder = function(callback){
+    if (typeof(callback) != "function"){
+      console.error("A callback function parameter is required");
+    }
+    let queue = [root];
+    while (queue.length != 0){
+      let nextNode = queue.shift();
+      callback(nextNode);
+      if (nextNode.left != null){
+        queue.push(nextNode.left);
+      }
+      if (nextNode.right != null){
+        queue.push(nextNode.right);
+      }
+    }
+  }
+
   return {
     buildTree,
     prettyPrint,
@@ -128,6 +147,7 @@ const Tree = function (dataArray) {
     insert,
     deleteItem,
     find,
+    levelOrder,
   };
 };
 
