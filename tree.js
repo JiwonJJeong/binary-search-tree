@@ -80,9 +80,9 @@ const Tree = function (dataArray) {
       return root;
     }
     if (value < root.data){
-      root = deleteItem(value, root.left);
+      root.left = deleteItem(value, root.left);
     } else if (value > root.data){
-      root = deleteItem(value, root.right);
+      root.right = deleteItem(value, root.right);
     } else{
       // here root.data == value
       if (root.left == null && root.right ==null){
