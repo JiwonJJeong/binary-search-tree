@@ -220,19 +220,19 @@ const Tree = function (dataArray) {
 
   // recursive solution to check all possible leaf paths
   const height = function(node, counter=0){
+    if (node == null){
+      return counter;
+    }
     if (node.left == null && node.right == null){
       return counter;
     }
-    if (node.left != null && node.right != null){
-      counter = Math.max(height(node.left,counter+1),height(node.right,counter+1));
-    }
-    else if (node.left != null){
-      counter = height(node.left,counter+1);
-    }
-    else if (node.right != null){
-      counter = height(node.left,counter+1);
-    }
+    counter = Math.max(height(node.left,counter+1),height(node.right,counter+1));
     return counter;
+  }
+
+  // true if diff b/w height of left subtree and right subtree of every node <= 1
+  const isBalanced = function(node = root){
+    //if ()
   }
 
   return {
