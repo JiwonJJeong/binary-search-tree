@@ -244,6 +244,17 @@ const Tree = function (dataArray) {
     }
   }
 
+  const rebalance = function(){
+    sortedArray = [];
+    this.inOrder(pushDataToArray);
+    root = arrayToTreeRecursive(sortedArray);
+  }
+
+  let sortedArray = [];
+  const pushDataToArray = function(node){
+    sortedArray.push(node.data);
+  }
+
   return {
     buildTree,
     prettyPrint,
@@ -258,6 +269,7 @@ const Tree = function (dataArray) {
     depth,
     height,
     isBalanced,
+    rebalance,
   };
 };
 
