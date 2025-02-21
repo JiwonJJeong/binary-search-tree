@@ -7,6 +7,8 @@ const printNodeData = function(node){
 
 const testTree = new Tree([5, 4, 2, 3, 7, 8, 32, 6, 124, 0])
 
+console.log(testTree.isBalanced());
+
 testTree.prettyPrint();
 
 testTree.insert(3);
@@ -32,3 +34,11 @@ testTree.postOrder(printNodeData); // 0 2.5 2 4 3 8 4347 7
 
 console.log(testTree.depth(testTree.find(4347)));
 console.log(testTree.height(testTree.find(3)));
+
+testTree.insert(-1);
+testTree.insert(-2);
+testTree.insert(-3);
+testTree.insert(-4);
+testTree.insert(-5);
+
+console.log(testTree.isBalanced());

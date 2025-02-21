@@ -232,7 +232,16 @@ const Tree = function (dataArray) {
 
   // true if diff b/w height of left subtree and right subtree of every node <= 1
   const isBalanced = function(node = root){
-    //if ()
+    if (node == null){
+      return true;
+    }
+    let leftHeight = height(node.left);
+    let rightHeight = height(node.right);
+    if (Math.abs(leftHeight - rightHeight) <=1){
+      return true && isBalanced(node.left) && isBalanced(node.right);
+    } else{
+      return false;
+    }
   }
 
   return {
@@ -248,6 +257,7 @@ const Tree = function (dataArray) {
     postOrder,
     depth,
     height,
+    isBalanced,
   };
 };
 
