@@ -31,3 +31,4 @@ console.log(" ");
 testTree.postOrder(printNodeData); // 0 2.5 2 4 3 8 4347 7
 
 console.log(testTree.depth(testTree.find(4347)));
+console.log(testTree.height(testTree.find(7)));

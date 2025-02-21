@@ -218,6 +218,23 @@ const Tree = function (dataArray) {
     return counter;
   }
 
+  // recursive solution to check all possible leaf paths
+  const height = function(node, counter=0){
+    if (node.left == null && node.right == null){
+      return counter;
+    }
+    if (node.left != null && node.right != null){
+      counter = Math.max(height(node.left,counter+1),height(node.right,counter+1));
+    }
+    else if (node.left != null){
+      counter = height(node.left,counter+1);
+    }
+    else if (node.right != null){
+      counter = height(node.left,counter+1);
+    }
+    return counter;
+  }
+
   return {
     buildTree,
     prettyPrint,
@@ -230,6 +247,7 @@ const Tree = function (dataArray) {
     inOrder,
     postOrder,
     depth,
+    height,
   };
 };
 
