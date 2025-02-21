@@ -194,6 +194,30 @@ const Tree = function (dataArray) {
     callback(nextNode);
   }
 
+  const depth = function(node){
+    let counter = 0;
+    let compareNode = root;
+    while (compareNode != node){
+      if (node.data < compareNode.data){
+        if (compareNode.left != null){
+          compareNode = compareNode.left;
+          counter++;
+        } else{
+          console.error("Node not in tree");
+        }
+      }
+      else if (node.data > compareNode.data){
+        if (compareNode.right != null){
+          compareNode = compareNode.right;
+          counter++;
+        } else{
+          console.error("Node not in tree");
+        }
+      }
+    }
+    return counter;
+  }
+
   return {
     buildTree,
     prettyPrint,
@@ -205,6 +229,7 @@ const Tree = function (dataArray) {
     preOrder,
     inOrder,
     postOrder,
+    depth,
   };
 };
 
