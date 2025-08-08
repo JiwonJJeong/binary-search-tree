@@ -54,10 +54,222 @@ const Tree = function (dataArray) {
     }
   };
 
+  const insert = function(value){
+    let compareNode = root;
+    while (compareNode.data != value){
+      if (value < compareNode.data){
+        if (compareNode.left === null){
+          compareNode.left = new Node(value);
+          return;
+        }
+        compareNode = compareNode.left;
+      } else {
+        if (compareNode.right === null){
+          compareNode.right = new Node(value);
+          return;
+        }
+        compareNode = compareNode.right;
+      }
+    }
+    console.error("Caanot insert existing value");
+  }
+
+  // recursively searches tree and returns (modified) root (rebuilding it along the way)
+  const deleteItem = function(value, root = this.root){
+    if (root === null){
+      return root;
+    }
+    if (value < root.data){
+      root.left = deleteItem(value, root.left);
+    } else if (value > root.data){
+      root.right = deleteItem(value, root.right);
+    } else{
+      // here root.data == value
+      if (root.left == null && root.right ==null){
+        // the node to remove has 0 children
+        return null;
+      } else if (root.left == null){
+        // node to remove has right subtree
+        return root.right;
+      } else if (root.right == null){
+        // node to remove has left subtree
+        return root.left;
+      } else{
+        // node to remove has 2 children
+        let nextSuccessor = root.right; // should be set to min value of right subtree
+        while (nextSuccessor.left != null){
+          nextSuccessor = nextSuccessor.left;
+        }
+        // then replace root's data with successor data
+        root.data = nextSuccessor.data;
+        // and remove old nextSuccessor
+        root.right = deleteItem(nextSuccessor.data, root.right);
+      }
+    }
+    return root;
+  }
+
+  const find = function(value){
+    let node = root;
+    while (node.data != value){
+      if (value < node.data){
+        node = node.left;
+      } else{
+        node = node.right;
+      }
+    }
+    return node;
+  }
+
+  // traverses tree and calls callback function on each node
+  // traverses breadth-first (use queues)
+  const levelOrder = function(callback){
+    if (typeof(callback) != "function"){
+      console.error("A callback function parameter is required");
+    }
+    let queue = [root];
+    while (queue.length != 0){
+      let nextNode = queue.shift();
+      callback(nextNode);
+      if (nextNode.left != null){
+        queue.push(nextNode.left);
+      }
+      if (nextNode.right != null){
+        queue.push(nextNode.right);
+      }
+    }
+  }
+
+  // traverse tree depth-first inorder and calls callback on each node
+  // inorder: <left><root><right> (uses stacks bc recursion)
+  const inOrder = function(callback, stack = [this.root]){
+    if (typeof(callback) != "function"){
+      console.error("A callback function parameter is required");
+    }
+    let nextNode = stack.pop();
+    if (nextNode.left != null){
+      stack.push(nextNode.left);
+      inOrder(callback, stack);
+    }
+    callback(nextNode);
+    if (nextNode.right != null){
+      stack.push(nextNode.right);
+      inOrder(callback, stack);
+    }
+  }
+
+  // traverse tree depth-first preorder and calls callback on each node
+  // preOrder: <root><left><right>
+  const preOrder = function(callback, stack = [this.root]){
+    if (typeof(callback) != "function"){
+      console.error("A callback function parameter is required");
+    }
+    let nextNode = stack.pop();
+    callback(nextNode);
+    if (nextNode.left != null){
+      stack.push(nextNode.left);
+      preOrder(callback, stack);
+    }
+    if (nextNode.right != null){
+      stack.push(nextNode.right);
+      preOrder(callback, stack);
+    }
+  }
+
+  // traverse tree depth-first postorder and calls callback on each node
+  // postOrder: <left><right><root>
+  const postOrder = function(callback, stack = [this.root]){
+    if (typeof(callback) != "function"){
+      console.error("A callback function parameter is required");
+    }
+    let nextNode = stack.pop();
+    if (nextNode.left != null){
+      stack.push(nextNode.left);
+      postOrder(callback, stack);
+    }
+    if (nextNode.right != null){
+      stack.push(nextNode.right);
+      postOrder(callback, stack);
+    }
+    callback(nextNode);
+  }
+
+  const depth = function(node){
+    let counter = 0;
+    let compareNode = root;
+    while (compareNode != node){
+      if (node.data < compareNode.data){
+        if (compareNode.left != null){
+          compareNode = compareNode.left;
+          counter++;
+        } else{
+          console.error("Node not in tree");
+        }
+      }
+      else if (node.data > compareNode.data){
+        if (compareNode.right != null){
+          compareNode = compareNode.right;
+          counter++;
+        } else{
+          console.error("Node not in tree");
+        }
+      }
+    }
+    return counter;
+  }
+
+  // recursive solution to check all possible leaf paths
+  const height = function(node, counter=0){
+    if (node == null){
+      return counter;
+    }
+    if (node.left == null && node.right == null){
+      return counter;
+    }
+    counter = Math.max(height(node.left,counter+1),height(node.right,counter+1));
+    return counter;
+  }
+
+  // true if diff b/w height of left subtree and right subtree of every node <= 1
+  const isBalanced = function(node = root){
+    if (node == null){
+      return true;
+    }
+    let leftHeight = height(node.left);
+    let rightHeight = height(node.right);
+    if (Math.abs(leftHeight - rightHeight) <=1){
+      return true && isBalanced(node.left) && isBalanced(node.right);
+    } else{
+      return false;
+    }
+  }
+
+  const rebalance = function(){
+    sortedArray = [];
+    this.inOrder(pushDataToArray);
+    root = arrayToTreeRecursive(sortedArray);
+  }
+
+  let sortedArray = [];
+  const pushDataToArray = function(node){
+    sortedArray.push(node.data);
+  }
+
   return {
     buildTree,
     prettyPrint,
     root,
+    insert,
+    deleteItem,
+    find,
+    levelOrder,
+    preOrder,
+    inOrder,
+    postOrder,
+    depth,
+    height,
+    isBalanced,
+    rebalance,
   };
 };
 
